@@ -1,0 +1,74 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Linting Tools
+        run: |
+          npm install htmlhint stylelint stylelint-config-standard --save-dev
+
+      - name: Lint HTML
+        run: npx htmlhint "**/*.html"
+
+      - name: Lint CSS
+        run: npx stylelint "**/*.css"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Parcel
+        run: npm install parcel --save-dev
+
+      - name: Build Project
+        run: npx parcel build src/index.html
+
+        on:
+          pull_request:
+            branches:
+              - develop
+              - name: Checkout Code
+              uses: actions/checkout@v3
+              - name: Set Up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: 16
+                - name: Install Linting Tools
+  run: |
+    npm install htmlhint stylelint stylelint-config-standard --save-dev
+- name: Lint HTML
+  run: npx htmlhint "**/*.html"
+  - name: Lint CSS
+  run: npx stylelint "**/*.css"
+  - name: Checkout Code
+  uses: actions/checkout@v3
+  - name: Set Up Node.js
+  uses: actions/setup-node@v3
+  with:
+    node-version: 16
+    - name: Install Parcel
+    run: npm install parcel --save-dev
+    - name: Build Project
+    run: npx parcel build src/index.html
+                                    
